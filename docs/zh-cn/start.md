@@ -5,40 +5,35 @@
 TX-LCN 主要有两个模块，Tx-Client(TC) Tx-Manager(TM). TC作为微服务下的依赖，TM是独立的服务。   
 本教程带领大家了解框架的基本步骤，详细配置可参考 [dubbo](demo/dubbo.md) [springcloud](demo/springcloud.md)
 
-## TM配置与启动
+## 一、TM配置与启动
 
 ### TM的准备环境
 
-TM需要依赖的服务有
-JDK1.8+,Mysql5.6+,Redis3.2+,Git,Maven
+1. 安装TM需要依赖的中间件： JRE1.8+, Mysql5.6+, Redis3.2+
+ > 如果需要手动编译源码， 还需要Git, Maven, JDK1.8+
 
-初始化TM Mysql数据库
-创建数据库名称为:tx-manager
+1. 创建MySQL数据库, 名称为: tx-manager
 
+2. 创建数据表
 ```sql
-DROP TABLE IF EXISTS `t_tx_exception`;
 CREATE TABLE `t_tx_exception`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `group_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `group_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `unit_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `mod_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `mod_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `transaction_state` tinyint(4) NULL DEFAULT NULL,
-  `registrar` tinyint(4) NULL DEFAULT NULL COMMENT '-1 未知 0 Manager 通知事务失败， 1 client询问事务状态失败2 事务发起方关闭事务组失败',
-  `ex_state` tinyint(4) NULL DEFAULT NULL COMMENT '0 待处理 1已处理',
+  `registrar` tinyint(4) NULL DEFAULT NULL,
+  `remark` varchar(4096) NULL DEFAULT  NULL,
+  `ex_state` tinyint(4) NULL DEFAULT NULL COMMENT '0 未解决 1已解决',
   `create_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 967 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 ```
 
 ### TM下载与配置
+1. 从[历史版本TM下载](https://bbs.txlcn.org/viewtopic.php?id=44)找到5.0.2.RELEASE的TM, 下载.
 
-`git clone https://github.com/codingapi/tx-lcn.git `
-
-修改配置信息(txlcn-tm\src\main\resources\application.properties)
-
+2. 修改配置信息
 ```
 spring.application.name=tx-manager
 server.port=7970
@@ -66,27 +61,32 @@ mybatis.configuration.use-generated-keys=true
 # 开启日志
 #tx-lcn.logger.enabled=true
 #logging.level.com.codingapi=debug
-#redisIp
+#redis 主机
 #spring.redis.host=127.0.0.1
-#redis\u7AEF\u53E3
+#redis 端口
 #spring.redis.port=6379
-#redis\u5BC6\u7801
+#redis 密码
 #spring.redis.password=
-
-
 ```
-* `#`给出信息都是默认值
+* `#` 给出信息都是默认值  
+关于详细配置说明见[TM配置](setting/manager.md)
 
-关于详细配置说明见 [manager](setting/manager.md)
+* application.properties 加载顺序如下：  
+0、命令行启动参数指定  
+1、file:./config/（当前jar目录下的config目录）  
+2、file:./（当前jar目录）  
+3、classpath:/config/（classpath下的config目录）  
+4、classpath:/（classpath根目录）   
+发布的二进制可执行Jar包含一个默认配置文件（也就是4），可按需要覆盖默认配置
 
-### TM编译与启动
+* 手动编译TM，简单指引
+```
+# git clone https://github.com/codingapi/tx-lcn.git & cd txlcn-tm
+# mvn clean  package '-Dmaven.test.skip=true'
+```
+target文件夹下，即为TM executable jar.
 
-编译  
-进入到txlcn-tm路径下。 执行 `mvn clean  package '-Dmaven.test.skip=true'`   
-启动  
-进入target文件夹下。执行 `java -jar txlcn-tm-5.0.0.RELEASE.jar `
-
-## TC微服务模块
+## 二、TC微服务模块
 
 微服务示例架构
 
@@ -101,13 +101,13 @@ mybatis.configuration.use-generated-keys=true
         <dependency>
             <groupId>com.codingapi.txlcn</groupId>
             <artifactId>txlcn-tc</artifactId>
-            <version>5.0.0.RELEASE</version>
+            <version>5.0.2.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>com.codingapi.txlcn</groupId>
             <artifactId>txlcn-txmsg-netty</artifactId>
-            <version>5.0.0.RELEASE</version>
+            <version>5.0.2.RELEASE</version>
         </dependency>
 ```
 

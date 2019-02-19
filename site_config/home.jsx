@@ -67,7 +67,7 @@ export default {
     },
     'en-us': {
         brand: {
-            brandName: 'Best framework of distributed transaction - TXLCN',
+            brandName: 'Best framework of distributed transaction - LCN',
             briefIntroduction: 'Coordinate these local transactions by TM magic.',
             buttons: [
                 {

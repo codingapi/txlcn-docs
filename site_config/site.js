@@ -23,13 +23,13 @@ export default {
         link: 'https://bbs.txlcn.org/',
       },
       {
-        key: 'Docs',
-        text: 'Docs',
+        key: 'Documents',
+        text: 'Documents',
         link: '/en-us/docs/preface.html',
       },
       {
-        key: 'Download',
-        text: 'Download',
+        key: 'Downloads',
+        text: 'Downloads',
           link: 'https://github.com/codingapi/tx-lcn/releases',
           target:'_blank',
       },
@@ -74,7 +74,7 @@ export default {
         },
       ],
     },
-    copyright: 'Copyright © 2018 CodingApi',
+    copyright: 'Copyright © 2018-2019 CodingApi',
   },
   'zh-cn': {
     pageMenu: [

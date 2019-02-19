@@ -2,15 +2,15 @@
 
 Dubbo 示例说明  
 共三个模块如下：  
-dubbo-demo-client(发起方 | LCN模式)     
-dubbo-demo-d  (参与方 | TXC模式)  
-dubbo-demo-e  (参与方 | TCC模式)  
+DubboServiceA (发起方 | LCN模式)     
+DubboServiceB (参与方 | TXC模式)  
+DubboServiceC (参与方 | TCC模式)  
 
 代码地址:https://github.com/codingapi/txlcn-demo
 
-调用关系说明:
+## 一、调用关系说明:
 
-dubbo-demo-client -> DemoConsumerController的`txlcn`的Mapping是调用发起方法，代码如下。
+1. DubboServiceA -> DemoConsumerController的`txlcn`的Mapping是调用发起方法，代码如下。
 ```java
 @RestController
 public class DemoConsumerController {
@@ -21,64 +21,60 @@ public class DemoConsumerController {
 
 
     @RequestMapping("/txlcn")
-    public String sayHello(@RequestParam("value") String value) {
-        return demoApiService.execute(value);
-    }
+        public String sayHello(@RequestParam("value") String value,
+                               @RequestParam(value = "ex", required = false) String exFlag) {
+            return demoApiService.execute(value, exFlag);
+        }
 
 }
 
 ```
-DemoApiService.execute(value)方法代码:
+2. DemoApiService.execute(value, exFlag)方法代码:
 ```java
 @Service
 public class DemoApiServiceImpl implements DemoApiService {
 
     @Reference(version = "${demo.service.version}",
-            application = "${dubbo.application.d}",
+            application = "${dubbo.application.b}",
             registry = "${dubbo.registry.address}",
             retries = -1,
             check = false,
             loadbalance = "txlcn_random")
-    private DDemoService dDemoService;
+    private DemoServiceB demoServiceB;
 
     @Reference(version = "${demo.service.version}",
-            application = "${dubbo.application.e}",
+            application = "${dubbo.application.c}",
             retries = -1,
             check = false,
             registry = "${dubbo.registry.address}",
             loadbalance = "txlcn_random")
-    private EDemoService eDemoService;
+    private DemoServiceC demoServiceC;
 
     @Autowired
     private DemoMapper demoMapper;
 
     @Override
     @LcnTransaction
-    public String execute(String name) {
-
-        /*
-         * 注意 5.0.0 请用 DTXLocal 类
-         * 注意 5.0.0 请自行获取应用名称
-         * 注意 5.0.0 其它类重新导入包名
-         */
-        String dResp = dDemoService.rpc(name);
-        String eResp = eDemoService.rpc(name);
+    public String execute(String name, String exFlag) {
+        String bResp = demoServiceB.rpc(name);
+        String cResp = demoServiceC.rpc(name);
         Demo demo = new Demo();
-        demo.setCreateTime(new Date());
-        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);
+        demo.setGroupId(TracingContext.tracing().groupId());
         demo.setDemoField(name);
-        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());
-        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
+        demo.setAppName(Transactions.getApplicationId());
+        demo.setCreateTime(new Date());
         demoMapper.save(demo);
 
-//        int a = 1 / 0;
-        return dResp + " > " + eResp + " > " + "client-ok";
+        if (Objects.nonNull(exFlag)) {
+            throw new IllegalStateException("by exFlag");
+        }
+        return bResp + " > " + cResp + " > " + "ok-service-a";
     }
 }
 
 
 ```
-参与方dDemoService.rpc(name)的代码
+3. 参与方DemoServiceB.rpc(name)的代码
 
 ```java
 @Service(
@@ -91,33 +87,25 @@ public class DemoApiServiceImpl implements DemoApiService {
 public class DefaultDemoService implements DDemoService {
 
     @Autowired
-    private DDemoMapper demoMapper;
+    private DemoMapper demoMapper;
 
     @Override
     @TxTransaction(type = "txc")
     public String rpc(String name) {
-
-        /*
-         * 注意 5.0.0 请用 DTXLocal 类
-         * 注意 5.0.0 请自行获取应用名称
-         * 注意 5.0.0 其它类重新导入包名
-         */
-        log.info("GroupId: {}", TracingContext.tracing().groupId());
         Demo demo = new Demo();
         demo.setDemoField(name);
+        demo.setGroupId(TracingContext.tracing().groupId());
         demo.setCreateTime(new Date());
-        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());
-        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);
-        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
+        demo.setAppName(Transactions.getApplicationId());
         demoMapper.save(demo);
-        return "d-ok";
+        return "ok-service-d";
     }
 
 }
 
 ```
 
-参与方eDemoService.rpc(name)的代码
+4. 参与方DemoServiceC.rpc(name)的代码
 ```java
 @Service(
         version = "${demo.service.version}",
@@ -129,50 +117,107 @@ public class DefaultDemoService implements DDemoService {
 public class DefaultDemoService implements EDemoService {
 
     @Autowired
-    private EDemoMapper demoMapper;
+    private DemoMapper demoMapper;
 
     private ConcurrentHashMap<String, Long> ids = new ConcurrentHashMap<>();
 
     @Override
     @TccTransaction(confirmMethod = "cm", cancelMethod = "cl", executeClass = DefaultDemoService.class)
     public String rpc(String name) {
-        /*
-         * 注意 5.0.0 请用 DTXLocal 类
-         * 注意 5.0.0 请自行获取应用名称
-         * 注意 5.0.0 其它类重新导入包名
-         */
-        log.info("GroupId: {}", TracingContext.tracing().groupId());
         Demo demo = new Demo();
         demo.setDemoField(name);
+        demo.setAppName(Transactions.getApplicationId());
         demo.setCreateTime(new Date());
-        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());
-        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
-        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);
+        demo.setGroupId(TracingContext.tracing().groupId());
         demoMapper.save(demo);
-        ids.put(DTXLocalContext.cur().getGroupId(), demo.getId());
-        return "e-ok";
+        ids.put(TracingContext.tracing().groupId(), demo.getId());
+        return "ok-service-c";
     }
 
     public void cm(String name) {
-        log.info("tcc-confirm-" + DTXLocalContext.getOrNew().getGroupId());
-        ids.remove(DTXLocalContext.getOrNew().getGroupId());
+        log.info("tcc-confirm-" + TracingContext.tracing().groupId());
+        ids.remove(TracingContext.tracing().groupId());
     }
 
     public void cl(String name) {
-        log.info("tcc-cancel-" + DTXLocalContext.getOrNew().getGroupId());
-        demoMapper.deleteByKId(ids.get(DTXLocalContext.getOrNew().getGroupId()));
+        log.info("tcc-cancel-" + TracingContext.tracing().groupId());
+        demoMapper.deleteByKId(ids.get(TracingContext.tracing().groupId()));
     }
 }
 
 ```
 
-## 事务参与方D配置
- 工程截图  
-![maven project](../../../img/docs/maven-d.png)      
-项目配置文件 application.properties  
+## 二、工程代码概览
+1. 事务发起方，txlcn-demo-dubbo-service-a
+* 工程截图   
+![maven project](../../../img/docs/tc_dubbo_project_a.png)  
+* 项目配置文件 application.properties     
 ```properties
+##################
+# 这个是启动本服务的配置文件，其它的application-xxx.properties 是开发者的个性化配置，不用关心。
+# 你可以在 https://txlcn.org/zh-cn/docs/setting/client.html 看到所有的个性化配置
+#################
+
 # Spring boot application
-spring.application.name=dubbo-demo-d
+spring.application.name=DubboServiceAApplication
+server.port=12004
+management.port=12007
+
+# Service Version
+demo.service.version=1.0.0
+
+# Dubbo Config properties
+## ApplicationConfig Bean
+dubbo.application.id=DubboServiceAApplication
+dubbo.application.name=DubboServiceAApplication
+dubbo.application.b=DubboServiceBApplication
+dubbo.application.c=DubboServiceCApplication
+
+## ProtocolConfig Bean
+dubbo.protocol.id=dubbo
+dubbo.protocol.name=dubbo
+dubbo.protocol.port=12345
+dubbo.registry.protocol=zookeeper
+dubbo.registry.address=127.0.0.1:2181
+
+
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/txlcn-demo?\
+  characterEncoding=UTF-8&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.hikari.maximum-pool-size=20
+mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.use-generated-keys=true
+
+logging.level.com.codingapi.txlcn=DEBUG
+
+```
+* 启动类
+```java
+@SpringBootApplication
+@EnableDistributedTransaction
+public class DubboServiceAApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DubboServiceAApplication.class, args);
+    }
+}
+
+```
+
+2. 事务参与方，txlcn-demo-dubbo-service-b
+* 工程截图  
+![maven project](../../../img/docs/tc_dubbo_project_b.png)     
+* 项目配置文件 application.properties  
+```properties
+##################
+# 这个是启动本服务的配置文件，其它的application-xxx.properties 是开发者的个性化配置，不用关心。
+# 你可以在 https://txlcn.org/zh-cn/docs/setting/client.html 看到所有的个性化配置
+#################
+
+# Spring boot application
+spring.application.name=DubboServiceBApplication
 server.port=12005
 management.port=12008
 
@@ -184,8 +229,8 @@ dubbo.scan.basePackages=com.example
 
 # Dubbo Config properties
 ## ApplicationConfig Bean
-dubbo.application.id=dubbo-demo-d
-dubbo.application.name=dubbo-demo-d
+dubbo.application.id=DubboServiceBApplication
+dubbo.application.name=DubboServiceBApplication
 
 ## ProtocolConfig Bean
 dubbo.protocol.id=dubbo
@@ -200,41 +245,41 @@ dubbo.application.qos.enable=false
 
 ## DB
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/txlcn-demo?characterEncoding=UTF-8&serverTimezone=UTC
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/txlcn-demo?\
+  characterEncoding=UTF-8&serverTimezone=UTC
 spring.datasource.username=root
 spring.datasource.password=root
 spring.datasource.hikari.maximum-pool-size=20
 mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.configuration.use-generated-keys=true
 
-## tx-manager 配置
-#tx-lcn.client.manager-address=127.0.0.1:8070
+logging.level.com.codingapi.txlcn=DEBUG
+
 ```
-## Application代码
-
+* 启动类
 ```java
-
 @SpringBootApplication
 @EnableDistributedTransaction
-public class DemoDubboDApplication {
+public class DubboServiceBApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoDubboDApplication.class, args);
-
+        SpringApplication.run(DubboServiceBApplication.class, args);
     }
-
 }
 
 ```
-
-## 事务参与方 E
-工程截图  
-![maven project](../../../img/docs/maven-e.png)  
-配置文件 application.properties  
+3. 事务参与方，txlcn-demo-spring-service-c
+* 工程截图  
+![maven project](../../../img/docs/tc_dubbo_project_c.png)  
+* 项目配置文件 application.properties  
 ```properties
+##################
+# 这个是启动本服务的配置文件，其它的application-xxx.properties 是开发者的个性化配置，不用关心。
+# 你可以在 https://txlcn.org/zh-cn/docs/setting/client.html 看到所有的个性化配置
+#################
 
 # Spring boot application
-spring.application.name=dubbo-demo-e
+spring.application.name=DubboServiceCApplication
 server.port=12006
 management.port=12009
 
@@ -242,14 +287,12 @@ management.port=12009
 demo.service.version=1.0.0
 
 # Base packages to scan Dubbo Components (e.g @Service , @Reference)
-dubbo.scan.basePackages=com.example
+dubbo.scan.basePackages=org.txlcn.demo.dubbo
 
 # Dubbo Config properties
 ## ApplicationConfig Bean
-dubbo.application.id=dubbo-demo-e
-dubbo.application.name=dubbo-demo-e
-
-dubbo.application.service4=dubbo-demo-client
+dubbo.application.id=DubboServiceCApplication
+dubbo.application.name=DubboServiceCApplication
 
 ## ProtocolConfig Bean
 dubbo.protocol.id=dubbo
@@ -274,84 +317,26 @@ spring.datasource.hikari.maximum-pool-size=20
 mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.configuration.use-generated-keys=true
 
-## tx-manager 配置
-#tx-lcn.client.manager-address=127.0.0.1:8070
+logging.level.com.codingapi.txlcn=DEBUG
 
 ```
-## Application代码
-
+* 启动类
 ```java
 @SpringBootApplication
 @EnableDistributedTransaction
-public class DemoDubboEApplication {
+public class DubboServiceCApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoDubboEApplication.class, args);
-
+        SpringApplication.run(DubboServiceCApplication.class, args);
     }
-
 }
 
 ```
 
-## 事务发起方 Client
-  工程目录  
-![maven project](../../../img/docs/maven.png)   
-项目配置文件 application.properties  
-```properties
-
-# Spring boot application
-spring.application.name=dubbo-demo-client
-server.port=12004
-management.port=12007
-
-# Service Version
-demo.service.version=1.0.0
-
-# Dubbo Config properties
-## ApplicationConfig Bean
-dubbo.application.id=dubbo-demo-client
-dubbo.application.name=dubbo-demo-client
-dubbo.application.d=dubbo-demo-d
-dubbo.application.e=dubbo-demo-e
-## ProtocolConfig Bean
-dubbo.protocol.id=dubbo
-dubbo.protocol.name=dubbo
-dubbo.protocol.port=12345
-dubbo.registry.protocol=zookeeper
-dubbo.registry.address=127.0.0.1:2181
-
-
-spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/txlcn-demo?characterEncoding=UTF-8&serverTimezone=UTC
-spring.datasource.username=root
-spring.datasource.password=root
-spring.datasource.hikari.maximum-pool-size=20
-mybatis.configuration.map-underscore-to-camel-case=true
-mybatis.configuration.use-generated-keys=true
-
-## 切面日志信息(h2数据库地址,自创建)
-#tx-lcn.aspect.log.file-path=D://txlcn/h2-${spring.application.name}
-#
-## manager服务地址(rpc端口),可填写多个负载
-#tx-lcn.client.manager-address=127.0.0.1:8070
-#
-## 开启日志数据库记录存储
-#tx-lcn.logger.enabled=true
-## 日志数据库存储jdbc配置
-#tx-lcn.logger.driver-class-name=com.mysql.jdbc.Driver
-#tx-lcn.logger.jdbc-url=jdbc:mysql://127.0.0.1:3306/tx-logger?characterEncoding=UTF-8&serverTimezone=UTC
-#tx-lcn.logger.username=root
-#tx-lcn.logger.password=123456
-
-```
-
-## 启动Dubbo微服务
- 事务参与方 D  
-![dubbo-d](../../../img/docs/dubbo-d.png)
- 事务参与方 E  
-![dubbo-e](../../../img/docs/dubbo-e.png)
- 事务发起方 Client  
-![dubbo-client](../../../img/docs/dubbo-client.png)
-
-
+## 三、启动SpringCloud微服务
+事务参与方 ServiceB  
+![dubbo-b](../../../img/docs/tc_dubbo_b.png)
+事务参与方 ServiceC  
+![dubbo-c](../../../img/docs/tc_dubbo_c.png)
+事务发起方 ServiceA  
+![dubbo-a](../../../img/docs/tc_dubbo_a.png)
