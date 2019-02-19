@@ -101,13 +101,13 @@ mybatis.configuration.use-generated-keys=true
         <dependency>
             <groupId>com.codingapi.txlcn</groupId>
             <artifactId>txlcn-tc</artifactId>
-            <version>5.0.0.RELEASE</version>
+            <version>5.0.1.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>com.codingapi.txlcn</groupId>
             <artifactId>txlcn-txmsg-netty</artifactId>
-            <version>5.0.0.RELEASE</version>
+            <version>5.0.1.RELEASE</version>
         </dependency>
 ```
 
