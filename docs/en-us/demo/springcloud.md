@@ -2,15 +2,15 @@
 
 SpringCloud 示例说明  
 共三个模块如下：  
-spring-demo-client(发起方 | LCN模式)     
-spring-demo-d  (参与方 | TXC模式)  
-spring-demo-e  (参与方 | TCC模式)  
+SpringServiceA (发起方 | LCN模式)     
+SpringServiceB (参与方 | TXC模式)  
+SpringServiceC (参与方 | TCC模式)  
 
 代码地址:https://github.com/codingapi/txlcn-demo
 
-调用关系说明:
+## 一、调用关系说明:
 
-spring-demo-client -> DemoController的`txlcn`的Mapping是调用发起方法，代码如下。
+1. SpringServiceA -> DemoController的`txlcn`的Mapping是调用发起方法，代码如下。
 
 ```java
 @RestController
@@ -24,79 +24,76 @@ public class DemoController {
     }
 
     @RequestMapping("/txlcn")
-    public String execute(@RequestParam("value") String value) {
-        return  demoService.execute(value);
+    public String execute(
+            @RequestParam("value") String value,
+            @RequestParam(value = "ex", required = false) String exFlag) {
+        return demoService.execute(value, exFlag);
     }
-
-
 }
-
 
 ```
 
-demoService.execute(value)代码:   
+2. demoService.execute(value, exFlag)代码:   
 ```java
 
 @Service
 @Slf4j
 public class DemoServiceImpl implements DemoService {
 
-    private final ClientDemoMapper demoMapper;
+    private final DemoMapper demoMapper;
 
-    private final DDemoClient dDemoClient;
+    private final ServiceBClient serviceBClient;
 
-    private final EDemoClient eDemoClient;
+    private final ServiceCClient serviceCClient;
 
     @Autowired
-    public DemoServiceImpl(ClientDemoMapper demoMapper, DDemoClient dDemoClient, EDemoClient eDemoClient) {
+    public DemoServiceImpl(
+            ClientDemoMapper demoMapper,
+            ServiceBClient serviceBClient,
+            ServiceCClient serviceCClient) {
         this.demoMapper = demoMapper;
-        this.dDemoClient = dDemoClient;
-        this.eDemoClient = eDemoClient;
+        this.serviceBClient = serviceBClient;
+        this.serviceCClient = serviceCClient;
     }
 
     @Override
-    @TxcTransaction
+    @LcnTransaction
     public String execute(String value) {
-        /*
-         * 注意 5.0.0 请用 DTXLocal 类
-         * 注意 5.0.0 请自行获取应用名称
-         * 注意 5.0.0 其它类重新导入包名
-         */
 
-        // ServiceD
-        String dResp = dDemoClient.rpc(value);
+        // ServiceB
+        String dResp = serviceBClient.rpc(value);
 
-        // ServiceE
-        String eResp = eDemoClient.rpc(value);
+        // ServiceC
+        String eResp = serviceCClient.rpc(value);
 
-        // local transaction
+        // Local transaction
         Demo demo = new Demo();
+        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());  
         demo.setDemoField(value);
-        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING); // 应用名称
+        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);
         demo.setCreateTime(new Date());
-        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());  // DTXLocal
-        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
         demoMapper.save(demo);
 
-        // 手动异常，DTX B回滚
-//        int i = 1 / 0;
-        return dResp + " > " + eResp + " > " + "ok-client";
+        // 置异常标志，DTX 回滚
+        if (Objects.nonNull(exFlag)) {
+            throw new IllegalStateException("by exFlag");
+        }
+        return dResp + " > " + eResp + " > " + "ok-service-a";
     }
 }
 ```
 
- dDemoClient.rpc(value)代码:
- 
+3. ServiceBClient.rpc(value)代码:
  ```java
 @Service
 @Slf4j
 public class DemoServiceImpl implements DemoService {
 
-    private final DDemoMapper demoMapper;
+    private final DemoMapper demoMapper;
 
 
     @Autowired
-    public DemoServiceImpl(DDemoMapper demoMapper) {
+    public DemoServiceImpl(DemoMapper demoMapper) {
         this.demoMapper = demoMapper;
     }
 
@@ -104,85 +101,116 @@ public class DemoServiceImpl implements DemoService {
     @TxcTransaction(propagation = DTXPropagation.SUPPORTS)
     @Transactional
     public String rpc(String value) {
-        /*
-         * 注意 5.0.0 请用 DTXLocal 类
-         * 注意 5.0.0 请自行获取应用名称
-         * 注意 5.0.0 其它类重新导入包名
-         */
-//        log.info("GroupId: {}", TracingContext.tracing().groupId());
         Demo demo = new Demo();
-        demo.setCreateTime(new Date());
+        demo.setGroupId(TracingContext.tracing().groupId());
         demo.setDemoField(value);
-        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);  // 应用名称
-        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());   // DTXLocal
-        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
+        demo.setAppName(Transactions.getApplicationId());
+        demo.setCreateTime(new Date());
         demoMapper.save(demo);
-//        moreOperateMapper.update(new Date());
-//        moreOperateMapper.delete();
-        return "ok-d";
+        return "ok-service-b";
     }
 }
 
 ```
- eDemoClient.rpc(value)代码：
+4. ServiceCClient.rpc(value)代码：
  
 ```java
 @Service
 @Slf4j
 public class DemoServiceImpl implements DemoService {
 
-    private final EDemoMapper demoMapper;
+    private final DemoMapper demoMapper;
 
     private ConcurrentHashMap<String, Long> ids = new ConcurrentHashMap<>();
 
     @Autowired
-    public DemoServiceImpl(EDemoMapper demoMapper) {
+    public DemoServiceImpl(DemoMapper demoMapper) {
         this.demoMapper = demoMapper;
     }
 
     @Override
-    @TxcTransaction(propagation = DTXPropagation.SUPPORTS)
+    @TccTransaction(propagation = DTXPropagation.SUPPORTS)
     @Transactional
     public String rpc(String value) {
-        /*
-         * 注意 5.0.0 请用 DTXLocal 类
-         * 注意 5.0.0 请自行获取应用名称
-         * 注意 5.0.0 其它类重新导入包名
-         */
-//        log.info("GroupId: {}", TracingContext.tracing().groupId());
-
         Demo demo = new Demo();
         demo.setDemoField(value);
         demo.setCreateTime(new Date());
-        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);
-        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());
-        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
+        demo.setAppName(Transactions.getApplicationId());
+        demo.setGroupId(TracingContext.tracing().groupId());
         demoMapper.save(demo);
-//        ids.put(DTXLocalContext.getOrNew().getGroupId(), demo.getId());
-        return "ok-e";
+        ids.put(TracingContext.tracing().groupId(), demo.getId());
+        return "ok-service-c";
     }
 
     public void confirmRpc(String value) {
-        log.info("tcc-confirm-" + DTXLocalContext.getOrNew().getGroupId());
-        ids.remove(DTXLocalContext.getOrNew().getGroupId());
+        log.info("tcc-confirm-" + TracingContext.tracing().groupId());
+        ids.remove(TracingContext.tracing().groupId());
     }
 
     public void cancelRpc(String value) {
-        log.info("tcc-cancel-" + DTXLocalContext.getOrNew().getGroupId());
-        Long kid = ids.get(DTXLocalContext.getOrNew().getGroupId());
+        log.info("tcc-cancel-" + TracingContext.tracing().groupId());
+        Long kid = ids.get(TracingContext.tracing().groupId());
         demoMapper.deleteByKId(kid);
     }
 }
 
 ```
-
-## 事务参与方D
- 工程截图  
-![maven project](../../../img/docs/maven-sd.png)     
-项目配置文件 application.properties  
+## 二、工程代码概览
+1. 事务发起方，txlcn-demo-spring-service-a
+* 工程截图   
+![maven project](../../../img/docs/tc_project_a.png)  
+* 项目配置文件 application.properties     
 ```properties
+##################
+# 这个是启动本服务的配置文件，其它的application-xxx.properties 是开发者的个性化配置，不用关心。
+# 你可以在 https://txlcn.org/zh-cn/docs/setting/client.html 看到所有的个性化配置
+#################
 
-spring.application.name=spring-demo-d
+spring.application.name=txlcn-demo-spring-service-a
+server.port=12011
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+## TODO 你的配置
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/txlcn-demo?\
+characterEncoding=UTF-8&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.hikari.maximum-pool-size=20
+mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.use-generated-keys=true
+
+logging.level.com.codingapi.txlcn=DEBUG
+
+# 关闭Ribbon的重试机制（如果有必要）
+ribbon.MaxAutoRetriesNextServer=0
+ribbon.ReadTimeout=5000
+ribbon.ConnectTimeout=5000
+
+```
+* 启动类
+```java
+@SpringBootApplication
+@EnableDiscoveryClient
+@EnableDistributedTransaction
+public class SpringServiceAApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringServiceAApplication.class, args);
+    }
+}
+
+```
+
+2. 事务参与方，txlcn-demo-spring-service-b
+* 工程截图  
+![maven project](../../../img/docs/tc_project_b.png)     
+* 项目配置文件 application.properties  
+```properties
+##################
+# 这个是启动本服务的配置文件，其它的application-xxx.properties 是开发者的个性化配置，不用关心。
+# 你可以在 https://txlcn.org/zh-cn/docs/setting/client.html 看到所有的个性化配置
+#################
+
+spring.application.name=txlcn-demo-spring-service-b
 server.port=12002
 spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
@@ -195,108 +223,66 @@ spring.datasource.password=root
 mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.configuration.use-generated-keys=true
 
-
-## tx-manager 配置
-#tx-lcn.client.manager-address=127.0.0.1:8070
+logging.level.com.codingapi.txlcn=DEBUG
 
 ```
-
-## Application
-
+* 启动类
 ```java
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableDistributedTransaction
-public class SpringDApplication {
+public class SpringServiceBApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringDApplication.class, args);
-
+        SpringApplication.run(SpringServiceBApplication.class, args);
     }
 }
 
-
 ```
-
-## 事务参与方E
-工程截图  
-![maven project](../../../img/docs/maven-se.png)  
-项目配置文件 application.properties  
+3. 事务参与方，txlcn-demo-spring-service-c
+* 工程截图  
+![maven project](../../../img/docs/tc_project_c.png)  
+* 项目配置文件 application.properties  
 ```properties
-spring.application.name=spring-demo-e
+##################
+# 这个是启动本服务的配置文件，其它的application-xxx.properties 是开发者的个性化配置，不用关心。
+# 你可以在 https://txlcn.org/zh-cn/docs/setting/client.html 看到所有的个性化配置
+#################
+
+spring.application.name=txlcn-demo-spring-service-c
 server.port=12003
-
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-spring.datasource.url=jdbc:mysql://ip:port/txlcn-demo?characterEncoding=UTF-8
-spring.datasource.username=root
-spring.datasource.password=123456
-spring.datasource.hikari.maximum-pool-size=20
 
-mybatis.configuration.map-underscore-to-camel-case=true
-mybatis.configuration.use-generated-keys=true
-
-```
-## Application
-
-```java
-@SpringBootApplication
-@EnableDiscoveryClient
-@EnableDistributedTransaction
-public class SpringEApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(SpringEApplication.class, args);
-    }
-}
-
-
-```
-
-## 事务发起方Client
-工程截图   
-![maven project](../../../img/docs/maven-s.png)  
-项目配置文件 application.properties     
-```properties
-spring.application.name=spring-demo-client
-server.port=12011
-spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ## TODO 你的配置
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/txlcn-demo?characterEncoding=UTF-8&serverTimezone=UTC
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/txlcn-demo\
+  ?characterEncoding=UTF-8&serverTimezone=UTC
 spring.datasource.username=root
 spring.datasource.password=root
 spring.datasource.hikari.maximum-pool-size=20
 mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.configuration.use-generated-keys=true
 
-# 关闭Ribbon的重试机制（如果有必要）
-ribbon.MaxAutoRetriesNextServer=0
-ribbon.ReadTimeout=5000
-ribbon.ConnectTimeout=5000
-        
-
-## tx-manager 配置
-#tx-lcn.client.manager-address=127.0.0.1:8070
+logging.level.com.codingapi.txlcn=DEBUG
 
 ```
-## Application
-
+* 启动类
 ```java
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableDistributedTransaction
-public class SpringClientApplication {
+public class SpringServiceCApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringClientApplication.class, args);
+        SpringApplication.run(SpringServiceCApplication.class, args);
     }
 }
 
 ```
 
-## 启动SpringCloud微服务
-事务参与方 D  
-![spring-d](../../../img/docs/spring-d.png)
-事务参与方 E  
-![spring-e](../../../img/docs/spring-e.png)
-事务发起方 Client  
-![spring-client](../../../img/docs/spring-client.png)
+## 三、启动SpringCloud微服务
+事务参与方 ServiceB  
+![spring-b](../../../img/docs/tc_b.png)
+事务参与方 ServiceC  
+![spring-c](../../../img/docs/tc_c.png)
+事务发起方 ServiceA  
+![spring-a](../../../img/docs/tc_a.png)
