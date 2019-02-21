@@ -3,14 +3,14 @@ pages:
  home:
   # 首页配置
   zh-cn:
-   title: 'TX-LCN'
-   keywords: '关键词1，关键词2'
-   description: '页面内容简介'
+   title: 'TX-LCN分布式事务框架'
+   keywords: 'LCN，分布式事务，DTX'
+   description: 'TX-LCN分布式事务框架'
   # home config
   en-us:
-   title: 'page title'
-   keywords: 'keyword1,keyword2'
-   description: 'page description'
+   title: 'TX-LCN Distributed Transaction'
+   keywords: 'LCN, DTX'
+   description: 'TX-LCN Distributed Transaction'
  community:
   # 社区页配置
   zh-cn:

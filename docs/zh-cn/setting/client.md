@@ -1,40 +1,42 @@
-# TxClient配置说明
+# TC配置说明
 ## 一、application.properties
 ```properties
-
-# springcloud feign 下开启负载均衡时的配置。开启后同一个事务组下相同的模块会重复调用。
-# 对应dubbo框架下需要设置的是 @Reference的loadbalance，有下面四种，作用都是开启后同一个事务组下相同的模块会重复调用。
-#txlcn_random=com.codingapi.txlcn.tracing.dubbo.TxlcnRandomLoadBalance
-#txlcn_roundrobin=com.codingapi.txlcn.tracing.dubbo.TxlcnRoundRobinLoadBalance
-#txlcn_leastactive=com.codingapi.txlcn.tracing.dubbo.TxlcnLeastActiveLoadBalance
-#txlcn_consistenthash=com.codingapi.txlcn.tracing.dubbo.TxlcnConsistentHashLoadBalance
-
+# 是否启动LCN负载均衡策略(优化选项，开启与否，功能不受影响)
 tx-lcn.ribbon.loadbalancer.dtx.enabled=true
-# tx-manager 的配置地址，多个用,分割。注意设置上的地址在启动的时候会检查并连接，连接不成功会启动失败。
-# tx-manager 下集群策略，当增加一个新的tx-manager后，tx-manager也会通知到其他的在线模块，然后tx-client会在连接上后面加入的模块。
-tx-lcn.client.manager-address=127.0.0.1:8070,127.0.0.1:8071
+
+# tx-manager 的配置地址，可以指定TM集群中的任何一个或多个地址
+# tx-manager 下集群策略，每个TC都会从始至终<断线重连>与TM集群保持集群大小个连接。
+# TM方，每有TM进入集群，会找到所有TC并通知其与新TM建立连接。
+# TC方，启动时按配置与集群建立连接，成功后，会再与集群协商，查询集群大小并保持与所有TM的连接
+tx-lcn.client.manager-address=127.0.0.1:8070
+
 # 该参数是分布式事务框架存储的业务切面信息。采用的是h2数据库。绝对路径。该参数默认的值为{user.dir}/.txlcn/{application.name}-{application.port}
 tx-lcn.aspect.log.file-path=logs/.txlcn/demo-8080
-# 调用链长度等级，默认值为3.标识调用连长度为3，该参数是用于识别分布式事务的最大通讯时间。
+
+# 调用链长度等级，默认值为3（优化选项。系统中每个请求大致调用链平均长度，估算值。）
 tx-lcn.client.chain-level=3
-# 该参数为tc与tm通讯时的最大超时时间，单位毫米。该参数不需要配置会在连接初始化时由tm返回。
+
+# 该参数为tc与tm通讯时的最大超时时间，单位ms。该参数不需要配置会在连接初始化时由tm返回。
 tx-lcn.client.tm-rpc-timeout=2000
-# 该参数为分布式事务的最大时间，单位毫米。该参数不需要配置会在连接初始化时由tm返回。
-tx-lcn.client.dtx-time=50000
-# 该参数为雪花算法的机器编号。该参数不需要配置会在连接初始化时由tm返回。
+
+# 该参数为分布式事务的最大时间，单位ms。该参数不允许TC方配置，会在连接初始化时由tm返回。
+tx-lcn.client.dtx-time=8000
+
+# 该参数为雪花算法的机器编号，所有TC不能相同。该参数不允许配置，会在连接初始化时由tm返回。
 tx-lcn.client.machine-id=1
-#该参数为事务方法注解切面的orderNumber，默认值为0.
+
+# 该参数为事务方法注解切面的orderNumber，默认值为0.
 tx-lcn.client.dtx-aspect-order=0
-#该参数为事务连接资源方法切面的orderNumber，默认值为0.
+
+# 该参数为事务连接资源方法切面的orderNumber，默认值为0.
 tx-lcn.client.resource-order=0
-#是否开启日志记录。当开启以后需要配置对应logger的数据库连接配置信息。
+
+# 是否开启日志记录。当开启以后需要配置对应logger的数据库连接配置信息。
 tx-lcn.logger.enabled=false
-
-#该参数为tm下的配置，tc下忽略
-tx-lcn.client.tx-manager-delay=2000
-#该参数为tm下的配置，tc下忽略
-tx-lcn.client.tx-manager-heart=2000
-
+tx-lcn.logger.driver-class-name=${spring.datasource.driver-class-name}
+tx-lcn.logger.jdbc-url=${spring.datasource.url}
+tx-lcn.logger.username=${spring.datasource.username}
+tx-lcn.logger.password=${spring.datasource.password}
 
 ```
 
@@ -153,4 +155,18 @@ public class MysqlPrimaryKeysProvider implements PrimaryKeysProvider {
     }
 }
 
+```
+
+### 5、TC模块标识策略
+TC模块在负载时，TM为了区分具体模块，会要求TC注册时提供唯一标识。默认策略是，应用名称加端口方式标识。也可以自定义，自定义需要保证各个模块标识不能重复。
+
+```java
+@Component
+public class MyModIdProvider implements ModIdProvider {
+    
+    @Override
+    public String modId() {
+        return ip + port;
+    }
+}
 ```
