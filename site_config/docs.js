@@ -103,10 +103,6 @@ export default {
                         link: '/en-us/docs/manageradmin.html',
                     },
                     {
-                        title: 'When troubles',
-                        link: '/en-us/docs/debug.html',
-                    },
-                    {
                         title: 'Test report',
                         link: '/en-us/docs/test.html',
                     },
@@ -115,7 +111,7 @@ export default {
                         link: '/en-us/docs/developer.html',
                     },
                     {
-                        title: 'FQA',
+                        title: 'FAQ',
                         link: '/en-us/docs/fqa.html',
                     },
                 ],
@@ -227,10 +223,6 @@ export default {
                         link: '/zh-cn/docs/manageradmin.html',
                     },
                     {
-                        title: '问题排查手册',
-                        link: '/zh-cn/docs/debug.html',
-                    },
-                    {
                         title: '性能测试报告',
                         link: '/zh-cn/docs/test.html',
                     },
@@ -239,7 +231,7 @@ export default {
                         link: '/zh-cn/docs/developer.html',
                     },
                     {
-                        title: 'FQA',
+                        title: 'FAQ',
                         link: '/zh-cn/docs/fqa.html',
                     },
                 ],
