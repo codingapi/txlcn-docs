@@ -13,16 +13,6 @@ export default {
         link: '/en-us/index.html',
       },
       {
-        key: 'News',
-        text: 'News',
-        link: 'https://bbs.txlcn.org/viewtopic.php?id=42',
-      },
-      {
-        key: 'Forum',
-        text: 'Forum',
-        link: 'https://bbs.txlcn.org/',
-      },
-      {
         key: 'Documents',
         text: 'Documents',
         link: '/en-us/docs/preface.html',
@@ -84,16 +74,6 @@ export default {
         link: '/zh-cn/index.html',
       },
       {
-        key: '新闻',
-        text: '新闻',
-        link: 'https://bbs.txlcn.org/viewtopic.php?id=42',
-      },
-      {
-        key: 'community',
-        text: '社区',
-        link: 'https://bbs.txlcn.org',
-      },
-      {
         key: 'docs',
         text: '文档',
         link: '/zh-cn/docs/preface.html',
@@ -104,7 +84,6 @@ export default {
         link: 'https://github.com/codingapi/tx-lcn/releases',
         target:'_blank',
       },
-
     ],
     disclaimer: {
         title: '愿景',
