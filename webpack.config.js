@@ -46,6 +46,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
+    modules: ['node_modules']
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),

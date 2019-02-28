@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="dubbo" />
+	<meta name="description" content="dubbo" />
+	<!-- 网页标签标题 -->
+	<title>dubbo</title>
+	<link rel="shortcut icon" href="/img/docsite.ico"/>
+	<link rel="stylesheet" href="/build/documentation.css" />
+</head>
+<body>
+	<div id="root"><div class="documentation-page" data-reactroot=""><header class="header-container header-container-normal"><div class="header-body"><a href="/zh-cn/index.html"><img class="logo" src="/img/txlcn.png"/></a><div class="search search-normal"><span class="icon-search"></span></div><span class="language-switch language-switch-normal">En</span><div class="header-menu"><img class="header-menu-toggle" src="/img/system/menu_gray.png"/><ul><li class="menu-item menu-item-normal"><a href="/zh-cn/index.html" target="_self">首页</a></li><li class="menu-item menu-item-normal"><a href="https://bbs.txlcn.org/viewtopic.php?id=42" target="_self">新闻</a></li><li class="menu-item menu-item-normal"><a href="https://bbs.txlcn.org" target="_self">社区</a></li><li class="menu-item menu-item-normal menu-item-normal-active"><a href="/zh-cn/docs/preface.html" target="_self">文档</a></li><li class="menu-item menu-item-normal"><a href="https://github.com/codingapi/tx-lcn/releases" target="_blank">下载</a></li><li class="menu-item menu-item-normal"><a href="/zh-cn/sponsor/index.html" target="_self">赞助</a></li></ul></div></div></header><div class="bar"><div class="bar-body"><img src="/img/system/docs.png" class="front-img"/><span>文档</span><img src="/img/system/docs.png" class="back-img"/></div></div><section class="content-section"><div class="sidemenu"><div class="sidemenu-toggle"><img src="https://img.alicdn.com/tfs/TB1E6apXHGYBuNjy0FoXXciBFXa-200-200.png"/></div><ul><li class="menu-item menu-item-level-1"><span>用户文档</span><ul><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/preface.html" target="_self">入门</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/background.html" target="_self">背景</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/start.html" target="_self">快速开始</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/dependencies.html" target="_self">依赖</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>示例<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/env.html" target="_self">分布式事务示例</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/dubbo.html" target="_self">TC之Dubbo</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/springcloud.html" target="_self">TC之SpringCloud</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>原理介绍<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/control.html" target="_self">控制原理</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/lcn.html" target="_self">LCN模式</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/tcc.html" target="_self">TCC模式</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/txc.html" target="_self">TXC模式</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>配置手册<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/client.html" target="_self">TC配置</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/manager.html" target="_self">TM配置</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/distributed.html" target="_self">集群与负载</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>扩展支持<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/transaction.html" target="_self">事务模式扩展</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/message.html" target="_self">通讯协议扩展</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/rpc.html" target="_self">RPC框架扩展</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/communication.html" target="_self">通讯指令手册</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/manageradmin.html" target="_self">TM管理手册</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/debug.html" target="_self">问题排查手册</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/test.html" target="_self">性能测试报告</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/developer.html" target="_self">开发者</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/fqa.html" target="_self">FQA</a></li></ul></li></ul></div><div class="doc-content markdown-body"><h1>Dubbo示例</h1>
+<p>Dubbo 示例说明<br>
+共三个模块如下：<br>
+dubbo-demo-client(发起方 | LCN模式)<br>
+dubbo-demo-d  (参与方 | TXC模式)<br>
+dubbo-demo-e  (参与方 | TCC模式)</p>
+<p>代码地址:<a href="https://github.com/codingapi/txlcn-demo">https://github.com/codingapi/txlcn-demo</a></p>
+<p>调用关系说明:</p>
+<p>dubbo-demo-client -&gt; DemoConsumerController的<code>txlcn</code>的Mapping是调用发起方法，代码如下。</p>
+<pre><code class="language-java"><span class="hljs-meta">@RestController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoConsumerController</span> </span>{
+
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> DemoApiService demoApiService;
+
+
+    <span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/txlcn"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">sayHello</span><span class="hljs-params">(@RequestParam(<span class="hljs-string">"value"</span>)</span> String value) </span>{
+        <span class="hljs-keyword">return</span> demoApiService.execute(value);
+    }
+
+}
+
+</code></pre>
+<p>DemoApiService.execute(value)方法代码:</p>
+<pre><code class="language-java"><span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoApiServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">DemoApiService</span> </span>{
+
+    <span class="hljs-meta">@Reference</span>(version = <span class="hljs-string">"${demo.service.version}"</span>,
+            application = <span class="hljs-string">"${dubbo.application.d}"</span>,
+            registry = <span class="hljs-string">"${dubbo.registry.address}"</span>,
+            retries = -<span class="hljs-number">1</span>,
+            check = <span class="hljs-keyword">false</span>,
+            loadbalance = <span class="hljs-string">"txlcn_random"</span>)
+    <span class="hljs-keyword">private</span> DDemoService dDemoService;
+
+    <span class="hljs-meta">@Reference</span>(version = <span class="hljs-string">"${demo.service.version}"</span>,
+            application = <span class="hljs-string">"${dubbo.application.e}"</span>,
+            retries = -<span class="hljs-number">1</span>,
+            check = <span class="hljs-keyword">false</span>,
+            registry = <span class="hljs-string">"${dubbo.registry.address}"</span>,
+            loadbalance = <span class="hljs-string">"txlcn_random"</span>)
+    <span class="hljs-keyword">private</span> EDemoService eDemoService;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> DemoMapper demoMapper;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-meta">@LcnTransaction</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">execute</span><span class="hljs-params">(String name)</span> </span>{
+
+        <span class="hljs-comment">/*
+         * 注意 5.0.0 请用 DTXLocal 类
+         * 注意 5.0.0 请自行获取应用名称
+         * 注意 5.0.0 其它类重新导入包名
+         */</span>
+        String dResp = dDemoService.rpc(name);
+        String eResp = eDemoService.rpc(name);
+        Demo demo = <span class="hljs-keyword">new</span> Demo();
+        demo.setCreateTime(<span class="hljs-keyword">new</span> Date());
+        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);
+        demo.setDemoField(name);
+        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());
+        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
+        demoMapper.save(demo);
+
+<span class="hljs-comment">//        int a = 1 / 0;</span>
+        <span class="hljs-keyword">return</span> dResp + <span class="hljs-string">" &gt; "</span> + eResp + <span class="hljs-string">" &gt; "</span> + <span class="hljs-string">"client-ok"</span>;
+    }
+}
+
+
+</code></pre>
+<p>参与方dDemoService.rpc(name)的代码</p>
+<pre><code class="language-java"><span class="hljs-meta">@Service</span>(
+        version = <span class="hljs-string">"${demo.service.version}"</span>,
+        application = <span class="hljs-string">"${dubbo.application.id}"</span>,
+        protocol = <span class="hljs-string">"${dubbo.protocol.id}"</span>,
+        registry = <span class="hljs-string">"${dubbo.registry.id}"</span>
+)
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DefaultDemoService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">DDemoService</span> </span>{
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> DDemoMapper demoMapper;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-meta">@TxTransaction</span>(type = <span class="hljs-string">"txc"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">rpc</span><span class="hljs-params">(String name)</span> </span>{
+
+        <span class="hljs-comment">/*
+         * 注意 5.0.0 请用 DTXLocal 类
+         * 注意 5.0.0 请自行获取应用名称
+         * 注意 5.0.0 其它类重新导入包名
+         */</span>
+        log.info(<span class="hljs-string">"GroupId: {}"</span>, TracingContext.tracing().groupId());
+        Demo demo = <span class="hljs-keyword">new</span> Demo();
+        demo.setDemoField(name);
+        demo.setCreateTime(<span class="hljs-keyword">new</span> Date());
+        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());
+        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);
+        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
+        demoMapper.save(demo);
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"d-ok"</span>;
+    }
+
+}
+
+</code></pre>
+<p>参与方eDemoService.rpc(name)的代码</p>
+<pre><code class="language-java"><span class="hljs-meta">@Service</span>(
+        version = <span class="hljs-string">"${demo.service.version}"</span>,
+        application = <span class="hljs-string">"${dubbo.application.id}"</span>,
+        protocol = <span class="hljs-string">"${dubbo.protocol.id}"</span>,
+        registry = <span class="hljs-string">"${dubbo.registry.id}"</span>
+)
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DefaultDemoService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">EDemoService</span> </span>{
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> EDemoMapper demoMapper;
+
+    <span class="hljs-keyword">private</span> ConcurrentHashMap&lt;String, Long&gt; ids = <span class="hljs-keyword">new</span> ConcurrentHashMap&lt;&gt;();
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-meta">@TccTransaction</span>(confirmMethod = <span class="hljs-string">"cm"</span>, cancelMethod = <span class="hljs-string">"cl"</span>, executeClass = DefaultDemoService.class)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">rpc</span><span class="hljs-params">(String name)</span> </span>{
+        <span class="hljs-comment">/*
+         * 注意 5.0.0 请用 DTXLocal 类
+         * 注意 5.0.0 请自行获取应用名称
+         * 注意 5.0.0 其它类重新导入包名
+         */</span>
+        log.info(<span class="hljs-string">"GroupId: {}"</span>, TracingContext.tracing().groupId());
+        Demo demo = <span class="hljs-keyword">new</span> Demo();
+        demo.setDemoField(name);
+        demo.setCreateTime(<span class="hljs-keyword">new</span> Date());
+        demo.setGroupId(DTXLocalContext.getOrNew().getGroupId());
+        demo.setUnitId(DTXLocalContext.getOrNew().getUnitId());
+        demo.setAppName(Transactions.APPLICATION_ID_WHEN_RUNNING);
+        demoMapper.save(demo);
+        ids.put(DTXLocalContext.cur().getGroupId(), demo.getId());
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"e-ok"</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cm</span><span class="hljs-params">(String name)</span> </span>{
+        log.info(<span class="hljs-string">"tcc-confirm-"</span> + DTXLocalContext.getOrNew().getGroupId());
+        ids.remove(DTXLocalContext.getOrNew().getGroupId());
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cl</span><span class="hljs-params">(String name)</span> </span>{
+        log.info(<span class="hljs-string">"tcc-cancel-"</span> + DTXLocalContext.getOrNew().getGroupId());
+        demoMapper.deleteByKId(ids.get(DTXLocalContext.getOrNew().getGroupId()));
+    }
+}
+
+</code></pre>
+<h2>事务参与方D配置</h2>
+<p>工程截图<br>
+<img src="../../../img/docs/maven-d.png" alt="maven project"><br>
+项目配置文件 application.properties</p>
+<pre><code class="language-properties"><span class="hljs-comment"># Spring boot application</span>
+<span class="hljs-meta">spring.application.name</span>=<span class="hljs-string">dubbo-demo-d</span>
+<span class="hljs-meta">server.port</span>=<span class="hljs-string">12005</span>
+<span class="hljs-meta">management.port</span>=<span class="hljs-string">12008</span>
+<span class="hljs-comment">
+# Service version</span>
+<span class="hljs-meta">demo.service.version</span>=<span class="hljs-string">1.0.0</span>
+<span class="hljs-comment">
+# Base packages to scan Dubbo Components (e.g @Service , @Reference)</span>
+<span class="hljs-meta">dubbo.scan.basePackages</span>=<span class="hljs-string">com.example</span>
+<span class="hljs-comment">
+# Dubbo Config properties</span>
+<span class="hljs-comment">## ApplicationConfig Bean</span>
+<span class="hljs-meta">dubbo.application.id</span>=<span class="hljs-string">dubbo-demo-d</span>
+<span class="hljs-meta">dubbo.application.name</span>=<span class="hljs-string">dubbo-demo-d</span>
+<span class="hljs-comment">
+## ProtocolConfig Bean</span>
+<span class="hljs-meta">dubbo.protocol.id</span>=<span class="hljs-string">dubbo</span>
+<span class="hljs-meta">dubbo.protocol.name</span>=<span class="hljs-string">dubbo</span>
+<span class="hljs-meta">dubbo.protocol.port</span>=<span class="hljs-string">12345</span>
+<span class="hljs-comment">
+## RegistryConfig Bean</span>
+<span class="hljs-meta">dubbo.registry.id</span>=<span class="hljs-string">my-registry</span>
+<span class="hljs-meta">dubbo.registry.address</span>=<span class="hljs-string">127.0.0.1:2181</span>
+<span class="hljs-meta">dubbo.registry.protocol</span>=<span class="hljs-string">zookeeper</span>
+<span class="hljs-meta">dubbo.application.qos.enable</span>=<span class="hljs-string">false</span>
+<span class="hljs-comment">
+## DB</span>
+<span class="hljs-meta">spring.datasource.driver-class-name</span>=<span class="hljs-string">com.mysql.jdbc.Driver</span>
+<span class="hljs-meta">spring.datasource.url</span>=<span class="hljs-string">jdbc:mysql://127.0.0.1:3306/txlcn-demo?characterEncoding=UTF-8&amp;serverTimezone=UTC</span>
+<span class="hljs-meta">spring.datasource.username</span>=<span class="hljs-string">root</span>
+<span class="hljs-meta">spring.datasource.password</span>=<span class="hljs-string">root</span>
+<span class="hljs-meta">spring.datasource.hikari.maximum-pool-size</span>=<span class="hljs-string">20</span>
+<span class="hljs-meta">mybatis.configuration.map-underscore-to-camel-case</span>=<span class="hljs-string">true</span>
+<span class="hljs-meta">mybatis.configuration.use-generated-keys</span>=<span class="hljs-string">true</span>
+<span class="hljs-comment">
+## tx-manager 配置</span>
+<span class="hljs-comment">#tx-lcn.client.manager-address=127.0.0.1:8070</span>
+</code></pre>
+<h2>Application代码</h2>
+<pre><code class="language-java">
+<span class="hljs-meta">@SpringBootApplication</span>
+<span class="hljs-meta">@EnableDistributedTransaction</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoDubboDApplication</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        SpringApplication.run(DemoDubboDApplication.class, args);
+
+    }
+
+}
+
+</code></pre>
+<h2>事务参与方 E</h2>
+<p>工程截图<br>
+<img src="../../../img/docs/maven-e.png" alt="maven project"><br>
+配置文件 application.properties</p>
+<pre><code class="language-properties"><span class="hljs-comment">
+# Spring boot application</span>
+<span class="hljs-meta">spring.application.name</span>=<span class="hljs-string">dubbo-demo-e</span>
+<span class="hljs-meta">server.port</span>=<span class="hljs-string">12006</span>
+<span class="hljs-meta">management.port</span>=<span class="hljs-string">12009</span>
+<span class="hljs-comment">
+# Service version</span>
+<span class="hljs-meta">demo.service.version</span>=<span class="hljs-string">1.0.0</span>
+<span class="hljs-comment">
+# Base packages to scan Dubbo Components (e.g @Service , @Reference)</span>
+<span class="hljs-meta">dubbo.scan.basePackages</span>=<span class="hljs-string">com.example</span>
+<span class="hljs-comment">
+# Dubbo Config properties</span>
+<span class="hljs-comment">## ApplicationConfig Bean</span>
+<span class="hljs-meta">dubbo.application.id</span>=<span class="hljs-string">dubbo-demo-e</span>
+<span class="hljs-meta">dubbo.application.name</span>=<span class="hljs-string">dubbo-demo-e</span>
+
+<span class="hljs-meta">dubbo.application.service4</span>=<span class="hljs-string">dubbo-demo-client</span>
+<span class="hljs-comment">
+## ProtocolConfig Bean</span>
+<span class="hljs-meta">dubbo.protocol.id</span>=<span class="hljs-string">dubbo</span>
+<span class="hljs-meta">dubbo.protocol.name</span>=<span class="hljs-string">dubbo</span>
+<span class="hljs-meta">dubbo.protocol.port</span>=<span class="hljs-string">12346</span>
+<span class="hljs-comment">
+## RegistryConfig Bean</span>
+<span class="hljs-meta">dubbo.registry.id</span>=<span class="hljs-string">my-registry</span>
+<span class="hljs-meta">dubbo.registry.address</span>=<span class="hljs-string">127.0.0.1:2181</span>
+<span class="hljs-meta">dubbo.registry.protocol</span>=<span class="hljs-string">zookeeper</span>
+
+<span class="hljs-meta">dubbo.application.qos.enable</span>=<span class="hljs-string">false</span>
+<span class="hljs-comment">
+#db</span>
+<span class="hljs-meta">spring.datasource.driver-class-name</span>=<span class="hljs-string">com.mysql.jdbc.Driver</span>
+<span class="hljs-meta">spring.datasource.url</span>=<span class="hljs-string">jdbc:mysql://127.0.0.1:3306/txlcn-demo\
+  ?characterEncoding=UTF-8&amp;serverTimezone=UTC</span>
+<span class="hljs-meta">spring.datasource.username</span>=<span class="hljs-string">root</span>
+<span class="hljs-meta">spring.datasource.password</span>=<span class="hljs-string">root</span>
+<span class="hljs-meta">spring.datasource.hikari.maximum-pool-size</span>=<span class="hljs-string">20</span>
+
+<span class="hljs-meta">mybatis.configuration.map-underscore-to-camel-case</span>=<span class="hljs-string">true</span>
+<span class="hljs-meta">mybatis.configuration.use-generated-keys</span>=<span class="hljs-string">true</span>
+<span class="hljs-comment">
+## tx-manager 配置</span>
+<span class="hljs-comment">#tx-lcn.client.manager-address=127.0.0.1:8070</span>
+
+</code></pre>
+<h2>Application代码</h2>
+<pre><code class="language-java"><span class="hljs-meta">@SpringBootApplication</span>
+<span class="hljs-meta">@EnableDistributedTransaction</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DemoDubboEApplication</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        SpringApplication.run(DemoDubboEApplication.class, args);
+
+    }
+
+}
+
+</code></pre>
+<h2>事务发起方 Client</h2>
+<p>工程目录<br>
+<img src="../../../img/docs/maven.png" alt="maven project"><br>
+项目配置文件 application.properties</p>
+<pre><code class="language-properties"><span class="hljs-comment">
+# Spring boot application</span>
+<span class="hljs-meta">spring.application.name</span>=<span class="hljs-string">dubbo-demo-client</span>
+<span class="hljs-meta">server.port</span>=<span class="hljs-string">12004</span>
+<span class="hljs-meta">management.port</span>=<span class="hljs-string">12007</span>
+<span class="hljs-comment">
+# Service Version</span>
+<span class="hljs-meta">demo.service.version</span>=<span class="hljs-string">1.0.0</span>
+<span class="hljs-comment">
+# Dubbo Config properties</span>
+<span class="hljs-comment">## ApplicationConfig Bean</span>
+<span class="hljs-meta">dubbo.application.id</span>=<span class="hljs-string">dubbo-demo-client</span>
+<span class="hljs-meta">dubbo.application.name</span>=<span class="hljs-string">dubbo-demo-client</span>
+<span class="hljs-meta">dubbo.application.d</span>=<span class="hljs-string">dubbo-demo-d</span>
+<span class="hljs-meta">dubbo.application.e</span>=<span class="hljs-string">dubbo-demo-e</span>
+<span class="hljs-comment">## ProtocolConfig Bean</span>
+<span class="hljs-meta">dubbo.protocol.id</span>=<span class="hljs-string">dubbo</span>
+<span class="hljs-meta">dubbo.protocol.name</span>=<span class="hljs-string">dubbo</span>
+<span class="hljs-meta">dubbo.protocol.port</span>=<span class="hljs-string">12345</span>
+<span class="hljs-meta">dubbo.registry.protocol</span>=<span class="hljs-string">zookeeper</span>
+<span class="hljs-meta">dubbo.registry.address</span>=<span class="hljs-string">127.0.0.1:2181</span>
+
+
+<span class="hljs-meta">spring.datasource.driver-class-name</span>=<span class="hljs-string">com.mysql.jdbc.Driver</span>
+<span class="hljs-meta">spring.datasource.url</span>=<span class="hljs-string">jdbc:mysql://127.0.0.1:3306/txlcn-demo?characterEncoding=UTF-8&amp;serverTimezone=UTC</span>
+<span class="hljs-meta">spring.datasource.username</span>=<span class="hljs-string">root</span>
+<span class="hljs-meta">spring.datasource.password</span>=<span class="hljs-string">root</span>
+<span class="hljs-meta">spring.datasource.hikari.maximum-pool-size</span>=<span class="hljs-string">20</span>
+<span class="hljs-meta">mybatis.configuration.map-underscore-to-camel-case</span>=<span class="hljs-string">true</span>
+<span class="hljs-meta">mybatis.configuration.use-generated-keys</span>=<span class="hljs-string">true</span>
+<span class="hljs-comment">
+## 切面日志信息(h2数据库地址,自创建)</span>
+<span class="hljs-comment">#tx-lcn.aspect.log.file-path=D://txlcn/h2-${spring.application.name}</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment">## manager服务地址(rpc端口),可填写多个负载</span>
+<span class="hljs-comment">#tx-lcn.client.manager-address=127.0.0.1:8070</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment">## 开启日志数据库记录存储</span>
+<span class="hljs-comment">#tx-lcn.logger.enabled=true</span>
+<span class="hljs-comment">## 日志数据库存储jdbc配置</span>
+<span class="hljs-comment">#tx-lcn.logger.driver-class-name=com.mysql.jdbc.Driver</span>
+<span class="hljs-comment">#tx-lcn.logger.jdbc-url=jdbc:mysql://127.0.0.1:3306/tx-logger?characterEncoding=UTF-8&amp;serverTimezone=UTC</span>
+<span class="hljs-comment">#tx-lcn.logger.username=root</span>
+<span class="hljs-comment">#tx-lcn.logger.password=123456</span>
+
+</code></pre>
+<h2>启动Dubbo微服务</h2>
+<p>事务参与方 D<br>
+<img src="../../../img/docs/dubbo-d.png" alt="dubbo-d">
+事务参与方 E<br>
+<img src="../../../img/docs/dubbo-e.png" alt="dubbo-e">
+事务发起方 Client<br>
+<img src="../../../img/docs/dubbo-client.png" alt="dubbo-client"></p>
+</div></section><footer class="footer-container"><div class="footer-body"><img src="/img/txlcn.png"/><div class="cols-container"><div class="col col-12"><h3>愿景</h3><p>我们将致力于打造一个快捷、高效、兼任性强的分布式事务解决方案</p></div><div class="col col-6"><dl><dt>导航</dt><dd><a href="/zh-cn/docs/txlcn-arch.html" target="_self">TX-LCN解决方案</a></dd><dd><a href="/zh-cn/docs/start.html" target="_self">快速上手</a></dd><dd><a href="/zh-cn/docs/txlcn-mod.html" target="_self">开发计划</a></dd><dd><a href="https://bbs.txlcn.org/viewforum.php?id=8" target="_self">报告Bug</a></dd></dl></div><div class="col col-6"><dl><dt>友情链接</dt><dd><a href="https://www.codingapi.com/" target="_blank">CodingApi</a></dd></dl></div></div><div class="copyright"><span>Copyright © 2018-2019 CodingApi</span></div></div></footer></div></div>
+	<script src="https://f.alicdn.com/react/15.4.1/react-with-addons.min.js"></script>
+	<script src="https://f.alicdn.com/react/15.4.1/react-dom.min.js"></script>
+	<script>
+		window.rootPath = '';
+  </script>
+	<script src="/build/documentation.js"></script>
+</body>
+</html>

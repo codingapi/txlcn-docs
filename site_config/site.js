@@ -33,7 +33,11 @@ export default {
           link: 'https://github.com/codingapi/tx-lcn/releases',
           target:'_blank',
       },
-
+      {
+        key: 'Sponsor',
+        text: 'Sponsor',
+        link: '/en-us/sponsor/index.html'
+      },
     ],
     disclaimer: {
         title: 'Vision',
@@ -104,7 +108,11 @@ export default {
         link: 'https://github.com/codingapi/tx-lcn/releases',
         target:'_blank',
       },
-
+      {
+        key: '赞助',
+        text: '赞助',
+        link: '/zh-cn/sponsor/index.html'
+      },
     ],
     disclaimer: {
         title: '愿景',
