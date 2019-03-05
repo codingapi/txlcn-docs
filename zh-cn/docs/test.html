@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="test" />
+	<meta name="description" content="test" />
+	<!-- 网页标签标题 -->
+	<title>test</title>
+	<link rel="shortcut icon" href="/img/docsite.ico"/>
+	<link rel="stylesheet" href="/build/documentation.css" />
+</head>
+<body>
+	<div id="root"><div class="documentation-page" data-reactroot=""><header class="header-container header-container-normal"><div class="header-body"><a href="/zh-cn/index.html"><img class="logo" src="/img/txlcn.png"/></a><div class="search search-normal"><span class="icon-search"></span></div><span class="language-switch language-switch-normal">En</span><div class="header-menu"><img class="header-menu-toggle" src="/img/system/menu_gray.png"/><ul><li class="menu-item menu-item-normal"><a href="/zh-cn/index.html" target="_self">首页</a></li><li class="menu-item menu-item-normal menu-item-normal-active"><a href="/zh-cn/docs/preface.html" target="_self">文档</a></li><li class="menu-item menu-item-normal"><a href="https://github.com/codingapi/tx-lcn/releases" target="_blank">下载</a></li><li class="menu-item menu-item-normal"><a href="/zh-cn/sponsor/index.html" target="_self">赞助</a></li></ul></div></div></header><div class="bar"><div class="bar-body"><img src="/img/system/docs.png" class="front-img"/><span>文档</span><img src="/img/system/docs.png" class="back-img"/></div></div><section class="content-section"><div class="sidemenu"><div class="sidemenu-toggle"><img src="https://img.alicdn.com/tfs/TB1E6apXHGYBuNjy0FoXXciBFXa-200-200.png"/></div><ul><li class="menu-item menu-item-level-1"><span>用户文档</span><ul><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/preface.html" target="_self">入门</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/background.html" target="_self">背景</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/start.html" target="_self">快速开始</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/dependencies.html" target="_self">依赖</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>示例<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/env.html" target="_self">分布式事务示例</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/dubbo.html" target="_self">TC之Dubbo</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/springcloud.html" target="_self">TC之SpringCloud</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>原理介绍<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/control.html" target="_self">控制原理</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/lcn.html" target="_self">LCN模式</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/tcc.html" target="_self">TCC模式</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/txc.html" target="_self">TXC模式</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>配置手册<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/client.html" target="_self">TC配置</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/manager.html" target="_self">TM配置</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/distributed.html" target="_self">集群与负载</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>扩展支持<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/transaction.html" target="_self">事务模式扩展</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/message.html" target="_self">通讯协议扩展</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/rpc.html" target="_self">RPC框架扩展</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/communication.html" target="_self">通讯指令手册</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/manageradmin.html" target="_self">TM管理手册</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/test.html" target="_self">性能测试报告</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/developer.html" target="_self">开发者</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/fqa.html" target="_self">FAQ</a></li></ul></li></ul></div><div class="doc-content markdown-body"><h1>TX-LCN 5.0.0 性能测试报告</h1>
+<h2>方式说明</h2>
+<p>Dubbo下测试:
+D1. 在Dubbo下测试单LCN模块在并发20情况下循环请求的吞吐能力。<br>
+D2. 在Dubbo下测试单TXC模块在并发20情况下循环请求的吞吐能力。<br>
+D3. 在Dubbo下测试单TCC模块在并发20情况下循环请求的吞吐能力。<br>
+D4. 在Dubbo下测试TCC、TXC、LCN混合模块下在并发20情况下循环请求的吞吐能力。<br>
+D5. 在Dubbo下测试本地事务在并发20情况下循环请求的吞吐能力。</p>
+<p>SpringCloud下测试:
+S1. 在SpringCloud下测试单LCN模块在并发20情况下循环请求的吞吐能力。<br>
+S2. 在SpringCloud下测试单TXC模块在并发20情况下循环请求的吞吐能力。<br>
+S3. 在SpringCloud下测试单TCC模块在并发20情况下循环请求的吞吐能力。<br>
+S4. 在SpringCloud下测试TCC、TXC、LCN混合模块下在并发20情况下循环请求的吞吐能力。<br>
+S5. 在SpringCloud下测试本地事务在并发20情况下循环请求的吞吐能力。</p>
+<h2>测试环境</h2>
+<p>硬件环境:
+CPU: Intel(R) Core(TM) I5-8400 CPU @ 2.80GHz 2.81GHz<br>
+内存: 16G<br>
+硬盘：240G SSD</p>
+<p>软件环境:<br>
+系统:win10 64<br>
+JAVA: 1.8.0_181<br>
+Mysql: 5.7.23<br>
+Consul: 1.2.3<br>
+Zookeeper:3.4.9<br>
+Dubbo:2.6.2<br>
+SpringCloud:Finchley.SR2</p>
+<h2>测试模块</h2>
+<p>Client D E 三个模块,Client调用一次D模块在调用一次E模块。</p>
+<p>Client.sayHello() -&gt; D.rpc();<br>
+Client.sayHello() -&gt; E.rpc();</p>
+<h3>重要配置信息</h3>
+<p>采用jmeter做的压测</p>
+<p>线程配置<br>
+<img src=".../../img/jmeter.png" alt=""><br>
+结果取值<br>
+<img src="../../img/jmeter-res.png" alt=""></p>
+<p>jvm  -Xms256m -Xmx512m<br>
+连接池大小 均20<br>
+分布式事务框架未启用logger记录</p>
+<h2>测试结果</h2>
+<p><img src="../../img/res.png" alt=""></p>
+<h2>测试报告</h2>
+<p><a href="../../img/5.0.0.zip">Jmeter报告</a></p>
+<h2>测试说明</h2>
+<p>在相同条件下各种事务模式的效率关系</p>
+<p>TCC &gt; LCN &gt; TXC</p>
+<p>相比本地事务各模式的下降率</p>
+<table>
+<thead>
+<tr>
+<th>框架</th>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">下降率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dubbo</td>
+<td style="text-align:center">LCN</td>
+<td style="text-align:center">31.3%</td>
+</tr>
+<tr>
+<td>Dubbo</td>
+<td style="text-align:center">TXC</td>
+<td style="text-align:center">36.1%</td>
+</tr>
+<tr>
+<td>Dubbo</td>
+<td style="text-align:center">TCC</td>
+<td style="text-align:center">28.6%</td>
+</tr>
+<tr>
+<td>SpringCloud</td>
+<td style="text-align:center">LCN</td>
+<td style="text-align:center">21.5%</td>
+</tr>
+<tr>
+<td>SpringCloud</td>
+<td style="text-align:center">TXC</td>
+<td style="text-align:center">27.1%</td>
+</tr>
+<tr>
+<td>SpringCloud</td>
+<td style="text-align:center">TCC</td>
+<td style="text-align:center">21.5%</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>下降率<br>
+是指在相同的RPC框架下各种事务模式相同条件下的吞吐量相比本地事务吞吐量的下降比例。</li>
+</ul>
+<p>例如：1 - dubbo下LCN模式的吞吐量/dubbo下本地事务的吞吐量</p>
+</div></section><footer class="footer-container"><div class="footer-body"><img src="/img/txlcn.png"/><div class="cols-container"><div class="col col-12"><h3>愿景</h3><p>我们将致力于打造一个快捷、高效、兼任性强的分布式事务解决方案</p></div><div class="col col-6"><dl><dt>导航</dt><dd><a href="/zh-cn/docs/txlcn-arch.html" target="_self">TX-LCN解决方案</a></dd><dd><a href="/zh-cn/docs/start.html" target="_self">快速上手</a></dd><dd><a href="/zh-cn/docs/txlcn-mod.html" target="_self">开发计划</a></dd><dd><a href="https://bbs.txlcn.org/viewforum.php?id=8" target="_self">报告Bug</a></dd></dl></div><div class="col col-6"><dl><dt>友情链接</dt><dd><a href="https://www.codingapi.com/" target="_blank">CodingApi</a></dd></dl></div></div><div class="copyright"><span>Copyright © 2018-2019 CodingApi</span></div></div></footer></div></div>
+	<script src="https://f.alicdn.com/react/15.4.1/react-with-addons.min.js"></script>
+	<script src="https://f.alicdn.com/react/15.4.1/react-dom.min.js"></script>
+	<script>
+		window.rootPath = '';
+  </script>
+	<script src="/build/documentation.js"></script>
+</body>
+</html>

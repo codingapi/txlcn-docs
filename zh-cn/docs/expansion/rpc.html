@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="keywords" content="rpc" />
+	<meta name="description" content="rpc" />
+	<!-- 网页标签标题 -->
+	<title>rpc</title>
+	<link rel="shortcut icon" href="/img/docsite.ico"/>
+	<link rel="stylesheet" href="/build/documentation.css" />
+</head>
+<body>
+	<div id="root"><div class="documentation-page" data-reactroot=""><header class="header-container header-container-normal"><div class="header-body"><a href="/zh-cn/index.html"><img class="logo" src="/img/txlcn.png"/></a><div class="search search-normal"><span class="icon-search"></span></div><span class="language-switch language-switch-normal">En</span><div class="header-menu"><img class="header-menu-toggle" src="/img/system/menu_gray.png"/><ul><li class="menu-item menu-item-normal"><a href="/zh-cn/index.html" target="_self">首页</a></li><li class="menu-item menu-item-normal menu-item-normal-active"><a href="/zh-cn/docs/preface.html" target="_self">文档</a></li><li class="menu-item menu-item-normal"><a href="https://github.com/codingapi/tx-lcn/releases" target="_blank">下载</a></li><li class="menu-item menu-item-normal"><a href="/zh-cn/sponsor/index.html" target="_self">赞助</a></li></ul></div></div></header><div class="bar"><div class="bar-body"><img src="/img/system/docs.png" class="front-img"/><span>文档</span><img src="/img/system/docs.png" class="back-img"/></div></div><section class="content-section"><div class="sidemenu"><div class="sidemenu-toggle"><img src="https://img.alicdn.com/tfs/TB1E6apXHGYBuNjy0FoXXciBFXa-200-200.png"/></div><ul><li class="menu-item menu-item-level-1"><span>用户文档</span><ul><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/preface.html" target="_self">入门</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/background.html" target="_self">背景</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/start.html" target="_self">快速开始</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/dependencies.html" target="_self">依赖</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>示例<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/env.html" target="_self">分布式事务示例</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/dubbo.html" target="_self">TC之Dubbo</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/demo/springcloud.html" target="_self">TC之SpringCloud</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>原理介绍<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/control.html" target="_self">控制原理</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/lcn.html" target="_self">LCN模式</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/tcc.html" target="_self">TCC模式</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/principle/txc.html" target="_self">TXC模式</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>配置手册<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/client.html" target="_self">TC配置</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/manager.html" target="_self">TM配置</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/setting/distributed.html" target="_self">集群与负载</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><span>扩展支持<img style="transform:rotate(-90deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/transaction.html" target="_self">事务模式扩展</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/message.html" target="_self">通讯协议扩展</a></li><li class="menu-item menu-item-level-3"><a href="/zh-cn/docs/expansion/rpc.html" target="_self">RPC框架扩展</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/communication.html" target="_self">通讯指令手册</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/manageradmin.html" target="_self">TM管理手册</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/test.html" target="_self">性能测试报告</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/developer.html" target="_self">开发者</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/zh-cn/docs/fqa.html" target="_self">FAQ</a></li></ul></li></ul></div><div class="doc-content markdown-body"><h1>RPC框架扩展</h1>
+<p>RPC扩展主要是指在分布式事务框架下对传递控制参数的支持、与负载均衡的扩展控制。</p>
+<p>下面以dubbo框架为例讲解扩展的过程。</p>
+<ol>
+<li>传递控制参数的支持</li>
+</ol>
+<p>dubbo参数传递可以通过隐形传参的方式来完成。参数传递分为传出与接受两块。下面分别展示代码说明。</p>
+<p>dubbo传出参数的filter：</p>
+<pre><code class="language-java"><span class="hljs-meta">@Activate</span>(group = Constants.CONSUMER)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DubboRequestInterceptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Filter</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">invoke</span><span class="hljs-params">(Invoker&lt;?&gt; invoker, Invocation invocation)</span> <span class="hljs-keyword">throws</span> RpcException </span>{
+        <span class="hljs-comment">//判断是否存在事务</span>
+        <span class="hljs-keyword">if</span> (TracingContext.tracing().hasGroup()) {
+            <span class="hljs-comment">//设置传递的参数信息</span>
+            RpcContext.getContext().setAttachment(TracingConstants.HEADER_KEY_GROUP_ID, TracingContext.tracing().groupId());
+            RpcContext.getContext().setAttachment(TracingConstants.HEADER_KEY_APP_MAP, TracingContext.tracing().appMapBase64String());
+        }
+        <span class="hljs-keyword">return</span> invoker.invoke(invocation);
+    }
+}
+
+</code></pre>
+<p>dubbo传入参数的filter:</p>
+<pre><code class="language-java">
+<span class="hljs-meta">@Activate</span>(group = {Constants.PROVIDER})
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TracingHandlerInterceptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Filter</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">invoke</span><span class="hljs-params">(Invoker&lt;?&gt; invoker, Invocation invocation)</span> <span class="hljs-keyword">throws</span> RpcException </span>{
+        <span class="hljs-comment">//接受参数</span>
+        String groupId = invocation.getAttachment(TracingConstants.HEADER_KEY_GROUP_ID, <span class="hljs-string">""</span>);
+        String appList = invocation.getAttachment(TracingConstants.HEADER_KEY_APP_MAP, <span class="hljs-string">""</span>);
+        <span class="hljs-comment">//设置参数</span>
+        TracingContext.tracing().init(Maps.newHashMap(TracingConstants.GROUP_ID, groupId, TracingConstants.APP_MAP, appList));
+        <span class="hljs-keyword">return</span> invoker.invoke(invocation);
+    }
+}
+
+</code></pre>
+<ol start="2">
+<li>负载均衡的扩展控制(仅限于LCN模式下)</li>
+</ol>
+<p>控制的效果：负载均衡扩展主要为了做到在同一次分布式事务中相同的模块重复调用在同一个模块下。</p>
+<p>为什么仅限于LCN模式？</p>
+<p>当存在这样的请求链,A模块先调用了B模块的one方法，然后在调用了two方法，如下所示：</p>
+<p>A -&gt;B.one();
+A -&gt;B.two();
+假如one与two方法的业务都是在修改同一条数据,假如两个方法的id相同，伪代码如下:</p>
+<pre><code class="language-java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">one</span><span class="hljs-params">(id)</span></span>{
+   execute =&gt; update demo set state = <span class="hljs-number">1</span> where id = {id} ;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">two</span><span class="hljs-params">(id)</span></span>{
+   execute =&gt; update demo set state = <span class="hljs-number">2</span> where id = {id} ;
+}
+
+</code></pre>
+<p>若B模块做了集群存在B1、B2两个模块。那么就可能出现A分别调用了B1 B2模块，如下:</p>
+<p>A -&gt;B1.one();
+A -&gt;B2.two();
+在这样的情况下业务方将在LCN下会因为资源占用而导致执行失败而回滚事务。为了支持这样的场景，框架提供了重写了rpc的负载模式。</p>
+<p>控制在同一次事务下同一个被负载的模块被重复调用时将只会请求到第一次被选中的模块。在采用这样的方案的时候也会提高Connection的连接使用率，会提高在负载情况下的性能。</p>
+<p>dubbo框架默认提供了四种负载策略，这里仅仅展示random的实现。</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TxlcnRandomLoadBalance</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RandomLoadBalance</span> </span>{
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">Invoker&lt;T&gt; <span class="hljs-title">select</span><span class="hljs-params">(List&lt;Invoker&lt;T&gt;&gt; invokers, URL url, Invocation invocation)</span> </span>{
+       <span class="hljs-keyword">return</span> DubboTxlcnLoadBalance.chooseInvoker(invokers, url, invocation, <span class="hljs-keyword">super</span>::select);
+   }
+
+}
+
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DubboTxlcnLoadBalance</span> </span>{
+
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String empty = <span class="hljs-string">""</span>;
+
+   <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">Invoker&lt;T&gt; <span class="hljs-title">chooseInvoker</span><span class="hljs-params">(List&lt;Invoker&lt;T&gt;&gt; invokers, URL url, Invocation invocation, TxLcnLoadBalance loadBalance)</span> </span>{
+
+       <span class="hljs-comment">//非分布式事务直接执行默认业务.</span>
+       <span class="hljs-keyword">if</span>(!TracingContext.tracing().hasGroup()){
+           <span class="hljs-keyword">return</span> loadBalance.select(invokers, url, invocation);
+       }
+       TracingContext.tracing()
+               .addApp(RpcContext.getContext().getLocalAddressString(), empty);
+       <span class="hljs-keyword">assert</span> invokers.size() &gt; <span class="hljs-number">0</span>;
+       JSONObject appMap = TracingContext.tracing().appMap();
+       log.debug(<span class="hljs-string">"invokers: {}"</span>, invokers);
+       Invoker&lt;T&gt; chooseInvoker = <span class="hljs-keyword">null</span>;
+       outline:
+       <span class="hljs-keyword">for</span> (Invoker&lt;T&gt; tInvoker : invokers) {
+           <span class="hljs-keyword">for</span> (String address : appMap.keySet()) {
+               <span class="hljs-keyword">if</span> (address.equals(tInvoker.getUrl().getAddress())) {
+                   chooseInvoker = tInvoker;
+                   log.debug(<span class="hljs-string">"txlcn choosed server [{}] in txGroup: {}"</span>, tInvoker, TracingContext.tracing().groupId());
+                   <span class="hljs-keyword">break</span> outline;
+               }
+           }
+       }
+       <span class="hljs-keyword">if</span> (chooseInvoker == <span class="hljs-keyword">null</span>) {
+           Invoker&lt;T&gt; invoker = loadBalance.select(invokers, url, invocation);
+           TracingContext.tracing().addApp(invoker.getUrl().getAddress(), empty);
+           <span class="hljs-keyword">return</span> invoker;
+       }
+       <span class="hljs-keyword">return</span> chooseInvoker;
+   }
+
+   <span class="hljs-meta">@FunctionalInterface</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TxLcnLoadBalance</span> </span>{
+       &lt;T&gt; <span class="hljs-function">Invoker&lt;T&gt; <span class="hljs-title">select</span><span class="hljs-params">(List&lt;Invoker&lt;T&gt;&gt; invokers, URL url, Invocation invocation)</span></span>;
+   }
+}
+</code></pre>
+</div></section><footer class="footer-container"><div class="footer-body"><img src="/img/txlcn.png"/><div class="cols-container"><div class="col col-12"><h3>愿景</h3><p>我们将致力于打造一个快捷、高效、兼任性强的分布式事务解决方案</p></div><div class="col col-6"><dl><dt>导航</dt><dd><a href="/zh-cn/docs/txlcn-arch.html" target="_self">TX-LCN解决方案</a></dd><dd><a href="/zh-cn/docs/start.html" target="_self">快速上手</a></dd><dd><a href="/zh-cn/docs/txlcn-mod.html" target="_self">开发计划</a></dd><dd><a href="https://bbs.txlcn.org/viewforum.php?id=8" target="_self">报告Bug</a></dd></dl></div><div class="col col-6"><dl><dt>友情链接</dt><dd><a href="https://www.codingapi.com/" target="_blank">CodingApi</a></dd></dl></div></div><div class="copyright"><span>Copyright © 2018-2019 CodingApi</span></div></div></footer></div></div>
+	<script src="https://f.alicdn.com/react/15.4.1/react-with-addons.min.js"></script>
+	<script src="https://f.alicdn.com/react/15.4.1/react-dom.min.js"></script>
+	<script>
+		window.rootPath = '';
+  </script>
+	<script src="/build/documentation.js"></script>
+</body>
+</html>

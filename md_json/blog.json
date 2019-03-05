@@ -2,7 +2,7 @@
   "en-us": [
     {
       "filename": "blog1.md",
-      "link": "/en-us/blog/blog1.html",
+      "link": "\\en-us\\blog\\blog1.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -10,7 +10,7 @@
     },
     {
       "filename": "blog2.md",
-      "link": "/en-us/blog/blog2.html",
+      "link": "\\en-us\\blog\\blog2.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -18,7 +18,7 @@
     },
     {
       "filename": "blog3.md",
-      "link": "/en-us/blog/blog3.html",
+      "link": "\\en-us\\blog\\blog3.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -26,7 +26,7 @@
     },
     {
       "filename": "blog4.md",
-      "link": "/en-us/blog/blog4.html",
+      "link": "\\en-us\\blog\\blog4.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -34,7 +34,7 @@
     },
     {
       "filename": "blog5.md",
-      "link": "/en-us/blog/blog5.html",
+      "link": "\\en-us\\blog\\blog5.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -42,7 +42,7 @@
     },
     {
       "filename": "blog6.md",
-      "link": "/en-us/blog/blog6.html",
+      "link": "\\en-us\\blog\\blog6.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -50,7 +50,7 @@
     },
     {
       "filename": "blog7.md",
-      "link": "/en-us/blog/blog7.html",
+      "link": "\\en-us\\blog\\blog7.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -60,7 +60,7 @@
   "zh-cn": [
     {
       "filename": "blog1.md",
-      "link": "/zh-cn/blog/blog1.html",
+      "link": "\\zh-cn\\blog\\blog1.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -68,7 +68,7 @@
     },
     {
       "filename": "blog2.md",
-      "link": "/zh-cn/blog/blog2.html",
+      "link": "\\zh-cn\\blog\\blog2.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -76,7 +76,7 @@
     },
     {
       "filename": "blog3.md",
-      "link": "/zh-cn/blog/blog3.html",
+      "link": "\\zh-cn\\blog\\blog3.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -84,7 +84,7 @@
     },
     {
       "filename": "blog4.md",
-      "link": "/zh-cn/blog/blog4.html",
+      "link": "\\zh-cn\\blog\\blog4.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -92,7 +92,7 @@
     },
     {
       "filename": "blog5.md",
-      "link": "/zh-cn/blog/blog5.html",
+      "link": "\\zh-cn\\blog\\blog5.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -100,7 +100,7 @@
     },
     {
       "filename": "blog6.md",
-      "link": "/zh-cn/blog/blog6.html",
+      "link": "\\zh-cn\\blog\\blog6.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
@@ -108,7 +108,7 @@
     },
     {
       "filename": "blog7.md",
-      "link": "/zh-cn/blog/blog7.html",
+      "link": "\\zh-cn\\blog\\blog7.html",
       "meta": {
         "key1": "hello",
         "key2": "world"
