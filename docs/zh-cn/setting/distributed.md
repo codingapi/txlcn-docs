@@ -34,9 +34,9 @@ tx-lcn.client.manager-address=127.0.0.1:8070,127.0.0.1:8072
 
 1. 客户端在配置上tx-lcn.client.manager-address地址后,启动时必须要全部可访问客户端才能正常启动。
 
-2. 当tx-lcn.client.manager-address中的服务存在不可用时，客户端会重试链接11次，超过次数以后将不在重试，重试链接的间隔时间为15秒，当所有的TxManager都不可访问则会导致所有的分布式事务请求都失败回滚。
+2. 当tx-lcn.client.manager-address中的服务存在不可用时，客户端会重试链接8次，超过次数以后将不在重试，重试链接的间隔时间为6秒，当所有的TxManager都不可访问则会导致所有的分布式事务请求都失败回滚。
 
-3. 当增加一个新的TxManager的集群模块时不需要添加到tx-lcn.client.manager-address下，TxManager也会广播到所有的TxManager端再通知所有链接中的TxClient端新的TxManager加入。
+3. 当增加一个新的TxManager的集群模块时不需要添加到tx-lcn.client.manager-address下，TxManager也会广播到所有的TxManager端再通知所有链接中的TxClient端新的TxManager加入。TC配置集群时，不用制定集群里的所有地址。
 
 
 
