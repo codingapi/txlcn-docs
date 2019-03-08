@@ -27,7 +27,7 @@ export default {
                       "name": 'Remarks'
                   },
               ],
-              author: ''
+              author: '（The list is updated at 12 clock every day）'
           },
       ],
       barText: 'Sponsor',
@@ -60,7 +60,7 @@ export default {
                       "name": '备注'
                   },
               ],
-              author: ''
+              author: '（每天12点更新列表）'
           },
       ],
       barText: '赞助',

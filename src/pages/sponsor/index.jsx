@@ -18,7 +18,7 @@ class Documentation extends Language {
         super(props);
         this.state = {
         __html: '',
-        total: 100,
+        total: 1,
         page: 1,
         pageList: []
         };
@@ -163,7 +163,7 @@ class Documentation extends Language {
                                                     {item.content.map((item1, idx) => {
                                                         return (
                                                             <div className="Y-flex-item Y-font-color-white Y-padding-vertical-both-8 Y-text-align-center" key={idx}>
-                                                                {item1.name}
+                                                                {item1.name}<span className="Y-font-sie-12 Y-padding-horizontal-left-5">{item.author}</span>
                                                             </div>
                                                         )
                                                     })}
@@ -174,7 +174,7 @@ class Documentation extends Language {
                                                     {item.content.map((item1, idx) => {
                                                         return (
                                                             <div className="Y-flex-item Y-font-color-white Y-padding-vertical-both-8 Y-text-align-center" key={idx}>
-                                                                {item1.name}
+                                                                {item1.name}<span className="Y-font-sie-12 Y-padding-horizontal-left-5">{item1.author}</span>
                                                             </div>
                                                         )
                                                     })}
